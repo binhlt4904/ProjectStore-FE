@@ -18,7 +18,7 @@ function App() {
   return (
     <AuthProvider>
       <CartProvider>
-        <BrowserRouter>
+        <BrowserRouter basename="/">
           <Routes>
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />

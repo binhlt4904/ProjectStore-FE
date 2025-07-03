@@ -15,19 +15,26 @@ import RoleRedirectWrapper from "./components/RoleRedirectWrapper";
 import { userRoutes, adminRoutes } from "./routesConfig";
 
 function App() {
+  console.log("React App Loaded");
+
   return (
     <AuthProvider>
       <CartProvider>
         <BrowserRouter basename="/">
           <Routes>
-            <Route path="/login" element={<Login />} />
+            <Route path="/login" element={
+              <>
+                {console.log("Login route matched")}
+                <Login />
+              </>
+            } />
             <Route path="/register" element={<Register />} />
             <Route path="/verify-email" element={<VerifyEmail />} />
             <Route path="/forgot-password" element={<ForgotPassword />} />
             <Route path="/verify-reset-otp" element={<VerifyResetOtp />} />
             <Route path="/reset-password" element={<ResetPassword />} />
             <Route path="/change-password" element={<ChangePassword />} />
-            
+
 
             {/* User routes */}
             {userRoutes.map(({ path, component: Component }) => (

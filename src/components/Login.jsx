@@ -15,6 +15,7 @@ function Login() {
   const [password, setPassword] = useState('');
   const [errors, setErrors] = useState({});
   const [showPassword, setShowPassword] = useState(false);
+  console.log("Login component rendered");
   
 
   document.title = "LOGIN";

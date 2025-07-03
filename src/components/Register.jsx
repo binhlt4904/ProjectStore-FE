@@ -15,6 +15,7 @@ export default function Register() {
   const [message, setMessage] = useState('');
   const [errors, setErrors] = useState({});
   const [email, setEmail] = useState('');
+  const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
 
   document.title = "REGISTER";
@@ -23,7 +24,7 @@ export default function Register() {
     e.preventDefault();
     if (!validateForm()) return;
     try {
-      const res = await axios.post('http://localhost:8080/api/register', {
+      const res = await axios.post(`${API_BASE_URL}/register`, {
         username,
         name,
         email,

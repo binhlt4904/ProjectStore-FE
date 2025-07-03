@@ -17,6 +17,7 @@ function ProductDetail() {
   const [selectedSize, setSelectedSize] = useState('');
   const [currentImage, setCurrentImage] = useState(null);
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
   const colorOptions = [
     'Trắng', 'Đen', 'Xám', 'Xanh navy', 'Xanh dương', 'Xanh lá',
@@ -69,13 +70,13 @@ function ProductDetail() {
     const fetchData = async () => {
       try {
         // Lấy thông tin sản phẩm
-        const productRes = await axios.get(`http://localhost:8080/api/products/${id}`);
+        const productRes = await axios.get(`${API_BASE_URL}/products/${id}`);
         const productData = productRes.data;
         setProduct(productData);
         document.title = productData.name;
 
         // Lấy danh sách biến thể
-        const variantRes = await axios.get(`http://localhost:8080/api/productVariant/product/${id}`);
+        const variantRes = await axios.get(`${API_BASE_URL}/productVariant/product/${id}`);
         const variantList = (variantRes.data || []).sort((a, b) => {
           const colorDiff = colorOptions.indexOf(a.color) - colorOptions.indexOf(b.color);
           if (colorDiff !== 0) return colorDiff;

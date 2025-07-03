@@ -16,6 +16,7 @@ const OrderDetailPage = () => {
         const cached = localStorage.getItem('user');
         return cached ? JSON.parse(cached) : null;
     });
+    const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
     const [sidebarOpen, setSidebarOpen] = useState(false);
     document.title = "ORDER - Levents";
 
@@ -40,7 +41,7 @@ const OrderDetailPage = () => {
 
     useEffect(() => {
         axios
-            .get(`http://localhost:8080/api/admin/order/detail/${id}`)
+            .get(`${API_BASE_URL}/admin/order/detail/${id}`)
             .then(res => {
                 setOrder(res.data);
 

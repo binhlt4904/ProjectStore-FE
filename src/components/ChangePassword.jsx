@@ -21,6 +21,7 @@ export default function ChangePassword() {
     return cached ? JSON.parse(cached) : null;
   });
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
   document.title = "CHANGE-PASSWORD";
 
@@ -39,7 +40,7 @@ export default function ChangePassword() {
 
     try {
       await axios.post(
-        'http://localhost:8080/api/change-password',
+        `${API_BASE_URL}/change-password`,
         {
           currentPassword,
           newPassword,

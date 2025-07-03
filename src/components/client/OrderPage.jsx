@@ -27,6 +27,7 @@ const UserOrdersPage = () => {
   const [selectedTab, setSelectedTab] = useState('');
   const [selectedOrder, setSelectedOrder] = useState(null);
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
 
   const [user] = useState(() => {
@@ -50,7 +51,7 @@ const UserOrdersPage = () => {
     }).then(async (result) => {
       if (result.isConfirmed) {
         try {
-          await axios.put(`http://localhost:8080/api/admin/order/${orderId}/cancel`);
+          await axios.put(`${API_BASE_URL}/admin/order/${orderId}/cancel`);
           Swal.fire('Đã hủy!', 'Đơn hàng đã được hủy.', 'success');
 
           fetchOrders(); // load lại danh sách
@@ -73,7 +74,7 @@ const UserOrdersPage = () => {
     }).then(async (result) => {
       if (result.isConfirmed) {
         try {
-          await axios.post(`http://localhost:8080/api/order/confirm-received/${orderId}`);
+          await axios.post(`${API_BASE_URL}/order/confirm-received/${orderId}`);
           Swal.fire('Thành công', 'Đơn hàng đã đánh dấu là đã nhận.', 'success');
           fetchOrders();
         } catch (err) {
@@ -90,7 +91,7 @@ const UserOrdersPage = () => {
 
   const fetchOrders = async () => {
     try {
-      const res = await axios.get("http://localhost:8080/api/order/get", {
+      const res = await axios.get(`${API_BASE_URL}/order/get`, {
         params: {
           status: selectedTab,
           userId: user.id

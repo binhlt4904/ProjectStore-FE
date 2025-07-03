@@ -28,6 +28,7 @@ const ProductDetail = () => {
   const [isEditColorModalOpen, setIsEditColorModalOpen] = useState(false);
   const [editColorImages, setEditColorImages] = useState([]);
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
 
 
@@ -76,7 +77,7 @@ const ProductDetail = () => {
       console.log("FormData entry:", key, value);
     }
 
-    const response = await axios.post("http://localhost:8080/api/upload", formData, {
+    const response = await axios.post(`${API_BASE_URL}/upload`, formData, {
       headers: { "Content-Type": "multipart/form-data" }
     });
 
@@ -94,7 +95,7 @@ const ProductDetail = () => {
         productId: id,
       };
 
-      await axios.post("http://localhost:8080/api/productVariant/add-new", payload).then((res) => {
+      await axios.post(`${API_BASE_URL}/productVariant/add-new`, payload).then((res) => {
         const newPrice = res.data.newPrice;
         setProduct(prev => ({ ...prev, price: newPrice })); // Cập nhật giá trong UI
       });;
@@ -103,7 +104,7 @@ const ProductDetail = () => {
       setIsAddModalOpen(false);
       setNewVariant({ color: '', size: '', price: '', quantity: '', images: [], imageFiles: [] });
 
-      const variantRes = await axios.get(`http://localhost:8080/api/productVariant/product/${id}`);
+      const variantRes = await axios.get(`${API_BASE_URL}/productVariant/product/${id}`);
       const variantList = (variantRes.data || []).sort((a, b) => {
         const colorDiff = colorOptions.indexOf(a.color) - colorOptions.indexOf(b.color);
 
@@ -135,7 +136,7 @@ const ProductDetail = () => {
 
         const updated = { ...existing, quantity: existing.quantity + quantity };
         console.log(updated);
-        await axios.put(`http://localhost:8080/api/productVariant/add-existing/${existing.id}`, updated);
+        await axios.put(`${API_BASE_URL}/productVariant/add-existing/${existing.id}`, updated);
       } else {
         const imagesToUse =
           variants.find(v => v.color === selectedColorForSize)?.images || [];
@@ -148,7 +149,7 @@ const ProductDetail = () => {
           price,
           quantity
         };
-        await axios.post("http://localhost:8080/api/productVariant/add-new", payload).then((res) => {
+        await axios.post(`${API_BASE_URL}/productVariant/add-new`, payload).then((res) => {
           const newPrice = res.data.newPrice;
           setProduct(prev => ({ ...prev, price: newPrice })); // Cập nhật giá trong UI
         });;
@@ -157,7 +158,7 @@ const ProductDetail = () => {
       setIsAddSizeModalOpen(false);
       setNewVariant({ color: '', size: '', price: '', quantity: '', images: [], imageFiles: [] });
 
-      const variantRes = await axios.get(`http://localhost:8080/api/productVariant/product/${id}`);
+      const variantRes = await axios.get(`${API_BASE_URL}/productVariant/product/${id}`);
       const variantList = (variantRes.data || []).sort((a, b) => {
         const colorDiff = colorOptions.indexOf(a.color) - colorOptions.indexOf(b.color);
         if (colorDiff !== 0) return colorDiff;
@@ -171,8 +172,8 @@ const ProductDetail = () => {
 
   const handleHideVariant = async (variantId) => {
     try {
-      await axios.put(`http://localhost:8080/api/productVariant/hide/${variantId}`);
-      const refreshed = await axios.get(`http://localhost:8080/api/productVariant/product/${id}`);
+      await axios.put(`${API_BASE_URL}/productVariant/hide/${variantId}`);
+      const refreshed = await axios.get(`${API_BASE_URL}/productVariant/product/${id}`);
       setVariants(refreshed.data || []);
     } catch (err) {
       console.error("Lỗi khi ẩn mẫu:", err);
@@ -194,9 +195,9 @@ const ProductDetail = () => {
 
       console.log(variantToEdit.id);
 
-      await axios.put(`http://localhost:8080/api/productVariant/update/${variantToEdit.id}`, payload);
+      await axios.put(`${API_BASE_URL}/productVariant/update/${variantToEdit.id}`, payload);
       setIsEditModalOpen(false);
-      const refreshed = await axios.get(`http://localhost:8080/api/productVariant/product/${id}`);
+      const refreshed = await axios.get(`${API_BASE_URL}/productVariant/product/${id}`);
       setVariants(refreshed.data || []);
     } catch (e) {
       console.error("Lỗi khi cập nhật mẫu:", e);
@@ -212,12 +213,12 @@ const ProductDetail = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const productRes = await axios.get(`http://localhost:8080/api/products/${id}`);
+        const productRes = await axios.get(`${API_BASE_URL}/products/${id}`);
         const productData = productRes.data;
         setProduct(productData);
         document.title = productData.name;
 
-        const variantRes = await axios.get(`http://localhost:8080/api/productVariant/product/${id}`);
+        const variantRes = await axios.get(`${API_BASE_URL}/productVariant/product/${id}`);
         const variantList = (variantRes.data || []).sort((a, b) => {
           const colorDiff = colorOptions.indexOf(a.color) - colorOptions.indexOf(b.color);
           if (colorDiff !== 0) return colorDiff;
@@ -433,12 +434,12 @@ const ProductDetail = () => {
             const color = activeColor;
             const colorVariants = variants.filter(v => v.color === color);
             for (const v of colorVariants) {
-              await axios.put(`http://localhost:8080/api/productVariant/update-images/${v.id}`, updatedImages, {
+              await axios.put(`${API_BASE_URL}/productVariant/update-images/${v.id}`, updatedImages, {
                 headers: { 'Content-Type': 'application/json' },
               });
             }
 
-            const refreshed = await axios.get(`http://localhost:8080/api/productVariant/product/${id}`);
+            const refreshed = await axios.get(`${API_BASE_URL}/productVariant/product/${id}`);
             setVariants(refreshed.data || []);
             setIsEditColorModalOpen(false);
           }}

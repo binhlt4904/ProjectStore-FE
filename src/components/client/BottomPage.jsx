@@ -23,6 +23,7 @@ function BottomPage() {
   const [searchTerm, setSearchTerm] = useState("");
   const [priceFilter, setPriceFilter] = useState("");
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
   document.title = "BOTTOM - Levents";
 
@@ -31,7 +32,7 @@ function BottomPage() {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const res = await axios.get(`http://localhost:8080/api/products/sort/bottoms`, {
+        const res = await axios.get(`${API_BASE_URL}/products/sort/bottoms`, {
           params: {
             page: currentPage,
             size: pageSize,

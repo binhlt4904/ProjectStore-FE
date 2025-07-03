@@ -18,7 +18,7 @@ const AdminChatBox = () => {
         const cached = localStorage.getItem("user");
         return cached ? JSON.parse(cached) : null;
     });
-    
+    const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
     const [unreadCount, setUnreadCount] = useState(0);
     const [unreadList, setUnreadList] = useState([]);
@@ -26,7 +26,7 @@ const AdminChatBox = () => {
 
     const fetchUsers = async () => {
         try {
-            const res = await axios.get("http://localhost:8080/api/admin/chat/chat-users");
+            const res = await axios.get(`${API_BASE_URL}/admin/chat/chat-users`);
             setUsers(res.data);
         } catch (e) {
             console.error("Lỗi lấy danh sách user:", e);
@@ -35,7 +35,7 @@ const AdminChatBox = () => {
 
     const fetchMessages = async (userId) => {
         try {
-            const res = await axios.get(`http://localhost:8080/api/admin/chat/adminMessages/${userId}`);
+            const res = await axios.get(`${API_BASE_URL}/admin/chat/adminMessages/${userId}`);
             setMessages(res.data);
             setTimeout(() => scrollToBottom(), 0);
             setUnreadList((prev) => {
@@ -53,7 +53,7 @@ const AdminChatBox = () => {
     }, []);
 
     useEffect(() => {
-        const socket = new SockJS("http://localhost:8080/ws");
+        const socket = new SockJS("https://projectstore-be.onrender.com/ws");
         const client = new Client({
             webSocketFactory: () => socket,
             onConnect: () => {
@@ -127,7 +127,7 @@ const AdminChatBox = () => {
         }
 
         try {
-            const res = await axios.get(`http://localhost:8080/api/admin/chat/search-users?keyword=${text}`);
+            const res = await axios.get(`${API_BASE_URL}/admin/chat/search-users?keyword=${text}`);
             setSearchResults(res.data);
         } catch (e) {
             console.error("Lỗi tìm kiếm:", e);
@@ -187,7 +187,7 @@ const AdminChatBox = () => {
     useEffect(() => {
         if (user) {
             user.id = 'admin';
-            axios.get(`http://localhost:8080/api/admin/chat/unread-count/${user.id}`).then((res) => {
+            axios.get(`${API_BASE_URL}/admin/chat/unread-count/${user.id}`).then((res) => {
                 setUnreadCount(res.data.length);
                 setUnreadList(res.data);
                 console.log(res);
@@ -208,7 +208,7 @@ const AdminChatBox = () => {
             lastMsg.senderId !== "admin" &&
             lastMsg.status !== "READ"
         ) {
-            axios.post("http://localhost:8080/api/admin/chat/markAsRead", {
+            axios.post(`${API_BASE_URL}/admin/chat/markAsRead`, {
                 messageId: lastMsg.id,
                 userId: user.id,
             }).then(() => {

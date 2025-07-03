@@ -24,6 +24,7 @@ function HomePage() {
   const [accessories, setAccessories] = useState([]);
   const [newArrivals, setNewArrivals] = useState([]);
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
   const navigate = useNavigate();
 
@@ -37,10 +38,10 @@ function HomePage() {
 
     const fetchProducts = async () => {
       try {
-        const res1 = await axios.get('http://localhost:8080/api/products/tops');
-        const res2 = await axios.get('http://localhost:8080/api/products/bottoms');
-        const res3 = await axios.get('http://localhost:8080/api/products/accessories');
-        const res4 = await axios.get('http://localhost:8080/api/products/new-arrivals');
+        const res1 = await axios.get(`${API_BASE_URL}/products/tops`);
+        const res2 = await axios.get(`${API_BASE_URL}/products/bottoms`);
+        const res3 = await axios.get(`${API_BASE_URL}/products/accessories`);
+        const res4 = await axios.get(`${API_BASE_URL}/products/new-arrivals`);
         console.log(res1.data);
 
 

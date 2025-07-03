@@ -15,6 +15,7 @@ function BottomPage() {
     });
     const [setShowUserDropdown] = useState(false);
     const dropdownContainerRef = useRef(null);
+    const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
     const [products, setProducts] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
@@ -42,7 +43,7 @@ function BottomPage() {
         const fetchProducts = async () => {
             try {
                 const response = await axios.get(
-                    `http://localhost:8080/api/admin/products/bottoms?page=${currentPage - 1}&size=${itemsPerPage}`
+                    `${API_BASE_URL}/admin/products/bottoms?page=${currentPage - 1}&size=${itemsPerPage}`
                 );
                 setProducts(response.data.content);
                 setTotalPages(response.data.totalPages);

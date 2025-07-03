@@ -23,6 +23,7 @@ function Navbar({ onToggleSidebar }) {
   const [searchQuery, setSearchQuery] = useState("");
   const [searchResults, setSearchResults] = useState([]);
   const [typing, setTyping] = useState(false);
+  const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
 
 
@@ -42,7 +43,7 @@ function Navbar({ onToggleSidebar }) {
           setUser(JSON.parse(storedUser));
           return;
         }
-        const res = await axios.post('http://localhost:8080/api/user/profile', {}, { withCredentials: true });
+        const res = await axios.post(`${API_BASE_URL}/user/profile`, {}, { withCredentials: true });
         if (res.status === 200) {
           setUser(res.data);
           localStorage.setItem("user", JSON.stringify(res.data));
@@ -86,7 +87,7 @@ function Navbar({ onToggleSidebar }) {
 
   const handleSearch = async (query) => {
     try {
-      const res = await axios.get("http://localhost:8080/api/products/search", {
+      const res = await axios.get(`${API_BASE_URL}/products/search`, {
         params: { query }
       });
       if (res.status === 200) {

@@ -10,6 +10,7 @@ import { FaEye, FaShippingFast, FaBox, FaCheckCircle, FaTimesCircle } from "reac
 
 
 const MySwal = withReactContent(Swal);
+const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
 
 const TABS = [
@@ -73,7 +74,7 @@ const AdminOrderPage = () => {
 
     const fetchOrders = async () => {
         try {
-            const res = await axios.get('http://localhost:8080/api/admin/order/get', {
+            const res = await axios.get(`${API_BASE_URL}/admin/order/get`, {
                 params: { status: filterStatus }
             });
             setOrders(res.data);
@@ -94,7 +95,7 @@ const AdminOrderPage = () => {
 
         if (result.isConfirmed) {
             try {
-                const response = await axios.put(`http://localhost:8080/api/admin/order/${orderId}/approve`);
+                const response = await axios.put(`${API_BASE_URL}/admin/order/${orderId}/approve`);
                 if (response.status === 200) {
                     MySwal.fire('Thành công', 'Đơn hàng đã được phê duyệt.', 'success');
                     fetchOrders();
@@ -119,7 +120,7 @@ const AdminOrderPage = () => {
 
         if (result.isConfirmed) {
             try {
-                const res = await axios.put(`http://localhost:8080/api/admin/order/${orderId}/cancel`);
+                const res = await axios.put(`${API_BASE_URL}/admin/order/${orderId}/cancel`);
                 if (res.status === 200) {
                     MySwal.fire('Đã hủy', 'Đơn hàng đã bị hủy.', 'success');
                     fetchOrders();
@@ -144,7 +145,7 @@ const AdminOrderPage = () => {
 
         if (result.isConfirmed) {
             try {
-                const res = await axios.put(`http://localhost:8080/api/admin/order/${orderId}/assign`);
+                const res = await axios.put(`${API_BASE_URL}/admin/order/${orderId}/assign`);
                 if (res.status === 200) {
                     MySwal.fire('Thành công', 'Đơn đã được giao cho bên vận chuyển.', 'success');
                     fetchOrders();

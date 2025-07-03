@@ -16,6 +16,7 @@ function ProductPage() {
     const cached = localStorage.getItem("user");
     return cached ? JSON.parse(cached) : null;
   });
+  const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
   const [tops, setTops] = useState([]);
   const [bottoms, setBottoms] = useState([]);
   const [accessories, setAccessories] = useState([]);
@@ -37,9 +38,9 @@ function ProductPage() {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const res1 = await axios.get('http://localhost:8080/api/admin/products/getAllTops');
-        const res2 = await axios.get('http://localhost:8080/api/admin/products/getAllBottoms');
-        const res3 = await axios.get('http://localhost:8080/api/admin/products/getAllAccessories');
+        const res1 = await axios.get(`${API_BASE_URL}/admin/products/getAllTops`);
+        const res2 = await axios.get(`${API_BASE_URL}/admin/products/getAllBottoms`);
+        const res3 = await axios.get(`${API_BASE_URL}/admin/products/getAllAccessories`);
 
 
         setTops(res1.data); // Lưu vào state đã có price

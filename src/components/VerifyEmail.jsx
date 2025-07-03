@@ -10,6 +10,7 @@ function VerifyEmail() {
   const [email, setEmail] = useState('');
   const [otp, setOtp] = useState('');
   const [error, setError] = useState('');
+  const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
   document.title = "EMAIL-VERIFICATION";
 
@@ -32,7 +33,7 @@ function VerifyEmail() {
     }
 
     try {
-      const res = await axios.post('http://localhost:8080/api/verify-otp', {
+      const res = await axios.post(`${API_BASE_URL}/verify-otp`, {
         email,
         otp,
       });

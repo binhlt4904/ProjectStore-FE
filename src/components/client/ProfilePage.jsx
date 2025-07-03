@@ -24,13 +24,14 @@ function ProfilePage() {
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
 
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
 
   useEffect(() => {
     const fetchStats = async () => {
       if (user) {
         try {
-          const res = await axios.get(`http://localhost:8080/api/user/get/${userId}`);
+          const res = await axios.get(`${API_BASE_URL}/user/get/${userId}`);
           setStats(res.data);
 
         } catch (err) {
@@ -42,7 +43,7 @@ function ProfilePage() {
     const fetchOrder = async () => {
       if (user) {
         try {
-          const res = await axios.get(`http://localhost:8080/api/order/get/${userId}`);
+          const res = await axios.get(`${API_BASE_URL}/order/get/${userId}`);
           setOrders(res.data);
         } catch (err) {
           console.error("Failed to fetch stats", err);
@@ -53,7 +54,7 @@ function ProfilePage() {
     const fetchTotal = async () => {
       if (user) {
         try {
-          const res = await axios.get(`http://localhost:8080/api/order/totalSpent/${userId}`);
+          const res = await axios.get(`${API_BASE_URL}/order/totalSpent/${userId}`);
           setTotals(res.data);
         } catch (err) {
           console.error("Failed to fetch stats", err);
@@ -76,7 +77,7 @@ function ProfilePage() {
     formData.append("files", file); // giống như bạn đang làm
 
     try {
-      const response = await fetch("http://localhost:8080/api/upload", {
+      const response = await fetch(`${API_BASE_URL}/upload`, {
         method: "POST",
         body: formData
       });
@@ -89,7 +90,7 @@ function ProfilePage() {
       localStorage.setItem("user", JSON.stringify(updatedUser));
 
       // Nếu muốn lưu vào DB
-      await axios.put(`http://localhost:8080/api/user/update/${user.id}`, updatedUser);
+      await axios.put(`${API_BASE_URL}/user/update/${user.id}`, updatedUser);
 
     } catch (err) {
       console.error("Lỗi khi upload avatar:", err);
@@ -104,7 +105,7 @@ function ProfilePage() {
     if (!validateForm()) return;
     console.log(user);
     try {
-      const res = await axios.put(`http://localhost:8080/api/user/update/${user.id}`, user);
+      const res = await axios.put(`${API_BASE_URL}/user/update/${user.id}`, user);
       localStorage.setItem("user", JSON.stringify(res.data));
       setUser(res.data);
       setIsEditModalOpen(false);

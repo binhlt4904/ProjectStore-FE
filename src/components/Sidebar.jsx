@@ -28,12 +28,13 @@ const menu = [
 const Sidebar = ({ user , isOpen}) => {
   const location = useLocation(); // để highlight menu đang active
   const [wallet, setWallet] = useState(null);
+  const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
   useEffect(() => {
     const fetchWallet = async () => {
       try {
         if (!user || !user.id) return;
-        const res = await axios.get(`http://localhost:8080/api/wallet/get`,{
+        const res = await axios.get(`${API_BASE_URL}/wallet/get`,{
           params: {
             userId: user.id
           }

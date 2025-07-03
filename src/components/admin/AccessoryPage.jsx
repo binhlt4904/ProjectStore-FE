@@ -20,6 +20,7 @@ function AccessoryPage() {
     const [totalPages, setTotalPages] = useState(1);
     const itemsPerPage = 5;
     const [sidebarOpen, setSidebarOpen] = useState(false);
+    const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
 
     document.title = "ACCESSORY - Levents";
@@ -43,7 +44,7 @@ function AccessoryPage() {
         const fetchProducts = async () => {
             try {
                 const response = await axios.get(
-                    `http://localhost:8080/api/admin/products/accessories?page=${currentPage - 1}&size=${itemsPerPage}`
+                    `${API_BASE_URL}/admin/products/accessories?page=${currentPage - 1}&size=${itemsPerPage}`
                 );
                 setProducts(response.data.content);
                 setTotalPages(response.data.totalPages);
@@ -61,7 +62,7 @@ function AccessoryPage() {
     const handleRemove = async (id) => {
         if (!window.confirm("Bạn có chắc muốn xoá sản phẩm này không?")) return;
         try {
-            await axios.delete(`http://localhost:8080/api/admin/products/delete/${id}`);
+            await axios.delete(`${API_BASE_URL}/admin/products/delete/${id}`);
             setProducts(products.filter((p) => p.id !== id));
         } catch (error) {
             console.error("Lỗi khi xoá sản phẩm:", error);

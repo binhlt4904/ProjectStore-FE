@@ -22,6 +22,7 @@ function TopPage() {
     const [currentPage, setCurrentPage] = useState(1);
     const [totalPages, setTotalPages] = useState(1);
     const itemsPerPage = 5;
+    const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
     const [selectedImage, setSelectedImage] = useState(null); // Modal image
 
@@ -43,7 +44,7 @@ function TopPage() {
         const fetchProducts = async () => {
             try {
                 const response = await axios.get(
-                    `http://localhost:8080/api/admin/products/tops?page=${currentPage - 1}&size=${itemsPerPage}`
+                    `${API_BASE_URL}/admin/products/tops?page=${currentPage - 1}&size=${itemsPerPage}`
                 );
                 setProducts(response.data.content);
                 setTotalPages(response.data.totalPages);

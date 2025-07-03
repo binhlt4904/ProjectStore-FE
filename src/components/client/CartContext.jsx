@@ -8,6 +8,7 @@ const CartContext = createContext();
 export const CartProvider = ({ children }) => {
   const { user } = useAuth();
   const [cartItems, setCartItems] = useState([]);
+  const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
   useEffect(() => {
     if (!user || !user.id || user.role === "ADMIN") {
@@ -17,7 +18,7 @@ export const CartProvider = ({ children }) => {
 
     const fetchCart = async () => {
       try {
-        const res = await axios.get("http://localhost:8080/api/cart/get", {
+        const res = await axios.get(`${API_BASE_URL}/cart/get`, {
           params: { userId: user.id },
         });
         setCartItems(res.data);
@@ -31,7 +32,7 @@ export const CartProvider = ({ children }) => {
 
   const refreshCart = async () => {
     if (!user?.id) return;
-    const res = await axios.get("http://localhost:8080/api/cart/get", {
+    const res = await axios.get(`${API_BASE_URL}/cart/get`, {
       params: { userId: user.id },
     });
     setCartItems(res.data);
@@ -39,7 +40,7 @@ export const CartProvider = ({ children }) => {
 
   const addToCart = async (product) => {
     if (!user?.id) return;
-    await axios.post("http://localhost:8080/api/cart/add", {
+    await axios.post(`${API_BASE_URL}/cart/add`, {
       userId: user.id,
       productVariantId: product.productVariantId,
       quantity: 1,
@@ -58,7 +59,7 @@ export const CartProvider = ({ children }) => {
     });
     if (!confirm.isConfirmed) return;
 
-    await axios.delete("http://localhost:8080/api/cart/remove", {
+    await axios.delete(`${API_BASE_URL}/cart/remove`, {
       params: { userId: user.id, productVariantId: productId },
     });
     await refreshCart();
@@ -67,7 +68,7 @@ export const CartProvider = ({ children }) => {
 
   const increaseQuantity = async (productId) => {
     if (!user?.id) return;
-    await axios.post("http://localhost:8080/api/cart/add", {
+    await axios.post(`/cart/add`, {
       userId: user.id,
       productVariantId: productId,
       quantity: 1,
@@ -90,11 +91,11 @@ export const CartProvider = ({ children }) => {
       });
       if (!confirm.isConfirmed) return;
 
-      await axios.delete("http://localhost:8080/api/cart/remove", {
+      await axios.delete(`${API_BASE_URL}/cart/remove`, {
         params: { userId: user.id, productVariantId: productId },
       });
     } else {
-      await axios.post("http://localhost:8080/api/cart/decrease", {
+      await axios.post(`${API_BASE_URL}/cart/decrease`, {
         userId: user.id,
         productVariantId: productId,
         quantity: 1,

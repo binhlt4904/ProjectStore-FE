@@ -7,6 +7,7 @@ import Swal from 'sweetalert2';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 
 function Login() {
+  const API_BASE_URL = process.env.REACT_APP_API_BASE_URL
   const navigate = useNavigate();
   const { login } = useAuth();
 
@@ -14,6 +15,7 @@ function Login() {
   const [password, setPassword] = useState('');
   const [errors, setErrors] = useState({});
   const [showPassword, setShowPassword] = useState(false);
+  
 
   document.title = "LOGIN";
 
@@ -23,7 +25,7 @@ function Login() {
     if (!validateForm()) return;
 
     try {
-      const res = await axios.post('http://localhost:8080/api/login', {
+      const res = await axios.post(`${API_BASE_URL}/login`, {
         username,
         password,
       }, { withCredentials: true });
@@ -49,11 +51,11 @@ function Login() {
         }).then(async (result) => {
           if (result.isConfirmed) {
             try {
-              const emailRes = await axios.get(`http://localhost:8080/api/get-email?identifier=${encodeURIComponent(username)}`);
+              const emailRes = await axios.get(`${API_BASE_URL}/get-email?identifier=${encodeURIComponent(username)}`);
               const email = emailRes.data;
 
 
-              await axios.post('http://localhost:8080/api/resend-otp', {
+              await axios.post(`${API_BASE_URL}/resend-otp`, {
                 email: username,
               });
 

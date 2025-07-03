@@ -5,13 +5,14 @@ import axios from 'axios';
 
 const ProtectedRoute = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(null); // null: loading, true: logged in, false: not logged in
+  const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
   useEffect(() => {
     const checkUser = async () => {
       try {
         // Gửi yêu cầu đến backend để kiểm tra phiên/token
         // Đây là endpoint mà backend dùng để xác thực người dùng đã đăng nhập
-        const res = await axios.post('http://localhost:8080/api/user/profile', {}, { withCredentials: true });
+        const res = await axios.post(`${API_BASE_URL}/user/profile`, {}, { withCredentials: true });
         if (res.status === 200) {
           setIsLoggedIn(true); // Đã đăng nhập
         }

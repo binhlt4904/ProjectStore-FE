@@ -19,6 +19,7 @@ const ChatBox = () => {
   const  [setHasNewMessage] = useState(false);
   const [unreadCount, setUnreadCount] = useState(0);
   const chatVisibleRef = useRef(chatVisible);
+  const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
 
 
@@ -36,7 +37,7 @@ const ChatBox = () => {
 
   const loadMessages = async (pageToLoad, reset = false) => {
     try {
-      const res = await axios.get(`http://localhost:8080/api/admin/chat/clientMessages/${user.id}?page=${pageToLoad}&size=10`);
+      const res = await axios.get(`${API_BASE_URL}/admin/chat/clientMessages/${user.id}?page=${pageToLoad}&size=10`);
       const newMessages = res.data.reverse();
 
       if (reset) {
@@ -140,7 +141,7 @@ const ChatBox = () => {
 
   useEffect(() => {
     if (user) {
-      axios.get(`http://localhost:8080/api/admin/chat/unread-count/${user.id}`).then((res) => {
+      axios.get(`${API_BASE_URL}/admin/chat/unread-count/${user.id}`).then((res) => {
         setUnreadCount(res.data);
         console.log(res.data);
       });
@@ -216,7 +217,7 @@ const ChatBox = () => {
       Number(lastMsg.senderId) !== Number(user.id) &&  // Là tin nhắn của admin
       lastMsg.status !== "READ"        // Và chưa được đọc
     ) {
-      axios.post("http://localhost:8080/api/admin/chat/markAsRead", {
+      axios.post(`${API_BASE_URL}/admin/chat/markAsRead`, {
         messageId: lastMsg.id,
         userId: user.id,
       }).then(() => {
@@ -244,7 +245,7 @@ const ChatBox = () => {
     });
     if (!chatVisible && messages.length === 0) {
     // 👇 Gửi yêu cầu để admin gửi tin nhắn chào mừng
-    await axios.post("http://localhost:8080/api/admin/chat/welcome", {
+    await axios.post(`${API_BASE_URL}/admin/chat/welcome`, {
       userId: user.id,
     });
   }

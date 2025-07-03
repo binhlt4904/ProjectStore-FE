@@ -26,11 +26,12 @@ function TopPage() {
   document.title = "TOP - Levents";
 
   const pageSize = 6; // mỗi trang 6 sản phẩm
+  const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const res = await axios.get(`http://localhost:8080/api/products/sort/tops`, {
+        const res = await axios.get(`${API_BASE_URL}/products/sort/tops`, {
           params: {
             page: currentPage,
             size: pageSize,

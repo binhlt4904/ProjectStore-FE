@@ -12,6 +12,7 @@ export default function ResetPassword() {
   const [confirm, setConfirm] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirm, setShowConfirm] = useState(false);
+  const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
   document.title = "RESET-PASSWORD";
 
@@ -25,7 +26,7 @@ export default function ResetPassword() {
     }
 
     try {
-      await axios.post('http://localhost:8080/api/reset-password', { email, newPassword: password });
+      await axios.post(`${API_BASE_URL}/reset-password`, { email, newPassword: password });
       Swal.fire('Thành công', 'Mật khẩu đã được đặt lại!', 'success');
       navigate('/login');
     } catch (err) {

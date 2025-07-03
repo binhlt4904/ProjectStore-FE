@@ -9,6 +9,7 @@ export default function VerifyResetOtp() {
   const [otp, setOtp] = useState('');
   const [cooldown, setCooldown] = useState(0);
   const navigate = useNavigate();
+  const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
   document.title = "OTP-VERIFICATION";
 
@@ -37,7 +38,7 @@ export default function VerifyResetOtp() {
   const handleVerify = async (e) => {
     e.preventDefault();
     try {
-      await axios.post('http://localhost:8080/api/verify-reset-otp', { email, otp });
+      await axios.post(`${API_BASE_URL}/verify-reset-otp`, { email, otp });
       Swal.fire('Thành công', 'Xác thực thành công!', 'success');
       navigate(`/reset-password?email=${encodeURIComponent(email)}`);
     } catch (err) {
@@ -47,7 +48,7 @@ export default function VerifyResetOtp() {
 
   const handleResend = async () => {
     try {
-      const res = await axios.post(`http://localhost:8080/api/resend-reset-otp?email=${encodeURIComponent(email)}`);
+      const res = await axios.post(`${API_BASE_URL}/resend-reset-otp?email=${encodeURIComponent(email)}`);
       Swal.fire('Thành công', res.data || 'Đã gửi lại mã OTP', 'success');
       localStorage.setItem(`otp_sent_${email}`, Date.now().toString());
       setCooldown(300);

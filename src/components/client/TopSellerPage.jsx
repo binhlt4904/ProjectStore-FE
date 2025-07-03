@@ -26,11 +26,12 @@ function TopSellerPage() {
   document.title = "TOP SELLER - Levents";
 
   const pageSize = 6; // mỗi trang 6 sản phẩm
+  const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const res = await axios.get(`http://localhost:8080/api/products/sort/top-sellers`, {
+        const res = await axios.get(`${API_BASE_URL}/products/sort/top-sellers`, {
           params: {
             page: currentPage,
             size: pageSize,

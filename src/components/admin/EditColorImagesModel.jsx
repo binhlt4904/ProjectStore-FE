@@ -11,6 +11,7 @@ const EditColorImagesModel = ({
   const [newFiles, setNewFiles] = useState([]);
   const [draggedIndex, setDraggedIndex] = useState(null);
   const [draggedNewFileIndex, setDraggedNewFileIndex] = useState(null);
+  const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
 
 
@@ -36,7 +37,7 @@ const EditColorImagesModel = ({
       const formData = new FormData();
       newFiles.forEach(file => formData.append("files", file));
 
-      const response = await fetch("http://localhost:8080/api/upload", {
+      const response = await fetch(`${API_BASE_URL}/upload`, {
         method: "POST",
         body: formData
       });

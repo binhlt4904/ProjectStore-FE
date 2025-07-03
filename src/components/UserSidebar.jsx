@@ -8,6 +8,7 @@ const UserDropdown = ({ user, isOpen, onClose }) => {
   // Moved React Hooks inside the functional component
   // const [message, setMessage] = useState(''); // Not strictly needed for logout here, HomePage could handle notifications
   const navigate = useNavigate();
+  const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
   function handleUserPofile() {
     navigate("/user/profile");
@@ -19,7 +20,7 @@ const UserDropdown = ({ user, isOpen, onClose }) => {
 
   const handleLogout = async () => {
     try {
-      const res = await axios.post('http://localhost:8080/api/logout', {}, { withCredentials: true });
+      const res = await axios.post(`${API_BASE_URL}/logout`, {}, { withCredentials: true });
 
       if (res.status === 200) {
         localStorage.removeItem("user");

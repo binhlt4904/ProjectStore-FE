@@ -20,6 +20,7 @@ const RevenuePage = () => {
     const cached = localStorage.getItem("user");
     return cached ? JSON.parse(cached) : null;
   });
+  const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   document.title = "REVENUE - Levents";
@@ -36,7 +37,7 @@ const RevenuePage = () => {
 
   const fetchRevenue = async () => {
     try {
-      const res = await axios.get("http://localhost:8080/api/admin/revenue/get", {
+      const res = await axios.get(`${API_BASE_URL}/admin/revenue/get`, {
         params: {
           year: filter.year || undefined,
           month: filter.month || undefined,

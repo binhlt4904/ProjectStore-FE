@@ -22,15 +22,17 @@ function NewArrivalPage() {
   const [searchTerm, setSearchTerm] = useState("");
   const [priceFilter, setPriceFilter] = useState("");
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
   document.title = "NEW ARRIVAL - Levents";
 
   const pageSize = 6; // mỗi trang 6 sản phẩm
 
+
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const res = await axios.get(`http://localhost:8080/api/products/sort/new-arrivals`, {
+        const res = await axios.get(`${API_BASE_URL}/products/sort/new-arrivals`, {
           params: {
             page: currentPage,
             size: pageSize,

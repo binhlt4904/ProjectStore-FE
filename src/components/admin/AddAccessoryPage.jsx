@@ -24,6 +24,8 @@ function AddAccessoryPage() {
         thumbnailImage: null,
     });
 
+    const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+
     document.title = "ACCESSORY - Levents";
 
     const handleChange = (e) => {
@@ -53,7 +55,7 @@ function AddAccessoryPage() {
             console.log("FormData entry:", key, value);
         }
 
-        const response = await axios.post("http://localhost:8080/api/upload/single", formData);
+        const response = await axios.post(`${API_BASE_URL}/upload/single`, formData);
         console.log(response.data);
 
         return response.data; // Expect: List<String> URLs
@@ -101,7 +103,7 @@ function AddAccessoryPage() {
                 thumbnailImage: imageUrls,
             };
 
-            await axios.post("http://localhost:8080/api/products/add-product", productData, {
+            await axios.post(`${API_BASE_URL}/products/add-product`, productData, {
                 headers: {
                     "Content-Type": "application/json",
                 },

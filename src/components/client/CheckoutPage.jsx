@@ -7,6 +7,7 @@ import Footer from "../Footer";
 import axios from 'axios';
 
 const CheckoutPage = () => {
+  const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
   const { cartItems, setCartItems } = useCart();
   const [selectedItems, setSelectedItems] = useState([]);
   const [fullName, setFullName] = useState('');
@@ -35,6 +36,8 @@ const CheckoutPage = () => {
   const selectedProducts = Array.isArray(location.state?.selectedProducts)
     ? location.state.selectedProducts
     : [];
+
+    
 
   useEffect(() => {
     if (selectedProducts.length > 0) {
@@ -120,7 +123,7 @@ const CheckoutPage = () => {
     // cod
     if (paymentMethod === 'cod') {
       try {
-        const response = await axios.post('http://localhost:8080/api/order/handle', orderData);
+        const response = await axios.post(`${API_BASE_URL}/order/handle`, orderData);
         console.log(response);
         if (response.status === 200 || response.status === 201) {
           setSelectedItems([]);
@@ -144,7 +147,7 @@ const CheckoutPage = () => {
     else if (paymentMethod === 'wallet') {
       try {
         // B1: Gửi lên backend để kiểm tra tiền
-        const response = await axios.post('http://localhost:8080/api/order/check-wallet', orderData);
+        const response = await axios.post(`${API_BASE_URL}/order/check-wallet`, orderData);
         console.log(response.data);
         if (response.data.status === 'INSUFFICIENT_FUNDS') {
           alert('Ví của bạn không đủ tiền. Vui lòng nạp thêm.');
@@ -152,7 +155,7 @@ const CheckoutPage = () => {
         }
 
         // B2: Nếu đủ tiền thì tiếp tục đặt hàng
-        const orderResponse = await axios.post('http://localhost:8080/api/order/handle', orderData);
+        const orderResponse = await axios.post(`${API_BASE_URL}/order/handle`, orderData);
 
         if (orderResponse.status === 200 || orderResponse.status === 201) {
           setSelectedItems([]);

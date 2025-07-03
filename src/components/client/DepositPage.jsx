@@ -18,6 +18,7 @@ const DepositPage = ({ }) => {
         const cached = localStorage.getItem("user");
         return cached ? JSON.parse(cached) : null;
     });
+    const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
     const userId = user.id;
 
@@ -30,7 +31,7 @@ const DepositPage = ({ }) => {
     const fetchTransactions = async () => {
         console.log(userId);
         try {
-            const res = await axios.get(`http://localhost:8080/api/wallet/user/${userId}`, {
+            const res = await axios.get(`${API_BASE_URL}/wallet/user/${userId}`, {
                 withCredentials: true
             });
             setTransactions(res.data);
@@ -61,7 +62,7 @@ const DepositPage = ({ }) => {
 
 
         try {
-            await axios.post("http://localhost:8080/api/wallet/handle", {
+            await axios.post(`${API_BASE_URL}/wallet/handle`, {
                 userId,
                 amount: parseInt(amount),
                 transactionCode: code

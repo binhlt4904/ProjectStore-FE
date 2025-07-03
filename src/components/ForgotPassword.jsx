@@ -6,13 +6,14 @@ import { useNavigate } from 'react-router-dom';
 export default function ForgotPassword() {
   const [email, setEmail] = useState('');
   const navigate = useNavigate();
+  const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
   document.title = "FORGOT-PASSWORD";
 
   const handleSendOtp = async (e) => {
     e.preventDefault();
     try {
-      await axios.post('http://localhost:8080/api/forgot-password', { email });
+      await axios.post(`${API_BASE_URL}/forgot-password`, { email });
       Swal.fire('Thành công', 'Mã OTP đã được gửi qua email.', 'success');
       navigate(`/verify-reset-otp?email=${encodeURIComponent(email)}`);
     } catch (err) {

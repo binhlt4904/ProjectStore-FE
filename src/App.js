@@ -20,7 +20,7 @@ function App() {
   return (
     <AuthProvider>
       <CartProvider>
-        <BrowserRouter basename="/">
+        <BrowserRouter >
           <Routes>
             <Route path="/login" element={
               <>

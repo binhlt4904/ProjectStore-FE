@@ -67,9 +67,9 @@ const ChatBox = () => {
   useEffect(() => {
     let socket = '';
     if (user) {
-      socket = new SockJS(`http://localhost:8080/ws?userId=${user.id}`);
+      socket = new SockJS(`https://projectstore-be.onrender.com/ws?userId=${user.id}`);
     } else {
-      socket = new SockJS(`http://localhost:8080/ws?userId=null`);
+      socket = new SockJS(`https://projectstore-be.onrender.com/ws?userId=null`);
     }
 
     const client = new Client({

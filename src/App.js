@@ -24,12 +24,9 @@ function App() {
         <BrowserRouter >
           <Routes>
             
-            <Route path="/login" element={
-              <>
-                <Login />
-              </>
-            } />
+            
             <Route path="/register" element={<Register />} />
+            <Route path="/login" element={<Login />} />
             <Route path="/verify-email" element={<VerifyEmail />} />
             <Route path="/forgot-password" element={<ForgotPassword />} />
             <Route path="/verify-reset-otp" element={<VerifyResetOtp />} />

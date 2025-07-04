@@ -269,7 +269,7 @@ const ChatBox = () => {
               handleToggleChat();
               setUnreadCount(0); // reset khi mở
             }}
-            className="fixed bottom-6 right-6 z-50 bg-red-500 text-white p-4 rounded-full shadow-lg hover:bg-red-600 transition-all"
+            className="fixed bottom-20 right-6 z-50 bg-red-500 text-white p-4 rounded-full shadow-lg hover:bg-red-600 transition-all"
           >
             <div className="relative">
               <FaComments size={24} />

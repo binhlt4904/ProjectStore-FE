@@ -26,7 +26,6 @@ function App() {
             
             <Route path="/login" element={
               <>
-                {console.log("Login route matched")}
                 <Login />
               </>
             } />

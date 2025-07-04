@@ -29,7 +29,7 @@ import AdminChatBox from './components/admin/AdminChatBox';
 import RevenuePage from './components/admin/RevenuePage';
 
 export const userRoutes = [
-  { path: "/home", component: HomePage },
+  { path: "/", component: HomePage },
   { path: "/product/top", component: TopPage },
   { path: "/product/bottom", component: BottomPage },
   { path: "/product/accessory", component: AccessoryPage },

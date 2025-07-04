@@ -9,6 +9,7 @@ import ResetPassword from "./components/ResetPassword";
 import ChangePassword from "./components/ChangePassword";
 
 
+
 import { CartProvider } from "./components/client/CartContext";
 import { AuthProvider } from "./components/AuthContext";
 import RoleRedirectWrapper from "./components/RoleRedirectWrapper";
@@ -22,12 +23,7 @@ function App() {
       <CartProvider>
         <BrowserRouter >
           <Routes>
-            <Route path="/" element={
-              <>
-                {console.log("Login route matched")}
-                <Login />
-              </>
-            } />
+            
             <Route path="/login" element={
               <>
                 {console.log("Login route matched")}

@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import axios from 'axios';
 import { FaBox, FaShippingFast, FaCheckCircle, FaTrashAlt, FaTimesCircle } from 'react-icons/fa';
 import Sidebar from "../Sidebar";
 import Footer from "../Footer";
 import Navbar from "../Navbar";
 import ChatBox from './ChatBox';
+import ScrollToTopButton from "../ScrollToTopButton";
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
 
@@ -28,7 +29,7 @@ const UserOrdersPage = () => {
   const [selectedOrder, setSelectedOrder] = useState(null);
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
-
+  const mainRef = useRef(null);
 
   const [user] = useState(() => {
     // Lấy từ localStorage khi load lại trang
@@ -154,7 +155,10 @@ const UserOrdersPage = () => {
     <div className="flex h-screen bg-gray-100">
       <Navbar user={user} onToggleSidebar={() => setSidebarOpen(!sidebarOpen)} />
       <Sidebar user={user} isOpen={sidebarOpen} />
-      <main className="flex-1 mt-[72px] p-8 overflow-y-auto space-y-8 ">
+      <main
+        ref={mainRef}
+        className="flex-1 mt-[72px] p-8 overflow-y-auto space-y-8 "
+      >
         <h2 className="text-2xl font-bold mb-4">Đơn hàng của bạn</h2>
 
         <div className="flex space-x-4 mb-4 overflow-x-auto">
@@ -284,6 +288,7 @@ const UserOrdersPage = () => {
             </div>
           </div>
         )}
+        <ScrollToTopButton targetRef={mainRef} />
         <ChatBox />
 
         <Footer />

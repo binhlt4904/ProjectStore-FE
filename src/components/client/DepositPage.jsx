@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import Sidebar from "../Sidebar";
 import Footer from "../Footer";
 import Navbar from "../Navbar";
 import ChatBox from "./ChatBox";
+import ScrollToTopButton from "../ScrollToTopButton";
 
 
 const DepositPage = ({ }) => {
@@ -19,6 +20,7 @@ const DepositPage = ({ }) => {
         return cached ? JSON.parse(cached) : null;
     });
     const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+    const mainRef = useRef(null);
 
     const userId = user.id;
 
@@ -94,7 +96,10 @@ const DepositPage = ({ }) => {
 
             <Navbar user={user} onToggleSidebar={() => setSidebarOpen(!sidebarOpen)} />
             <Sidebar user={user} isOpen={sidebarOpen} />
-            <main className="flex-1 mt-[72px] p-8 overflow-y-auto space-y-8 ">
+            <main
+                ref={mainRef}
+                className="flex-1 mt-[72px] p-8 overflow-y-auto space-y-8 "
+            >
                 <h1 className="text-xl font-bold mb-4">Nạp tiền vào ví</h1>
 
                 {!submitted ? (
@@ -176,6 +181,7 @@ const DepositPage = ({ }) => {
                         </table>
                     </div>
                 </div>
+                <ScrollToTopButton targetRef={mainRef} />
                 <ChatBox />
                 <Footer />
             </main>

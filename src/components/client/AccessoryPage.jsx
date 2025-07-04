@@ -5,6 +5,7 @@ import Sidebar from "../Sidebar";
 import Footer from "../Footer";
 import Navbar from "../Navbar";
 import ChatBox from "./ChatBox";
+import ScrollToTopButton from "../ScrollToTopButton";
 import { FiFilter } from "react-icons/fi";
 
 function AccessoryPage() {
@@ -23,6 +24,7 @@ function AccessoryPage() {
   const [priceFilter, setPriceFilter] = useState("");
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+  const mainRef = useRef(null);
 
   document.title = "ACCESSORY - Levents";
 
@@ -81,7 +83,11 @@ function AccessoryPage() {
       <Navbar user={user} onToggleSidebar={() => setSidebarOpen(!sidebarOpen)} />
       <Sidebar user={user} isOpen={sidebarOpen} />
 
-      <main className="flex-1 mt-[72px] p-8 overflow-y-auto space-y-6">
+       <main
+        ref={mainRef}
+        className="flex-1 mt-[72px] p-8 overflow-y-auto space-y-8 "
+      >
+
         <div className="flex justify-between items-center">
           <h1 className="text-3xl font-bold">
             Tất cả sản phẩm ACCESSORY
@@ -196,6 +202,7 @@ function AccessoryPage() {
             </button>
           </div>
         )}
+        <ScrollToTopButton targetRef={mainRef} />
         <ChatBox />
         <Footer />
       </main>

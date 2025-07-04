@@ -10,9 +10,12 @@ import Sidebar from "../Sidebar";
 import Footer from "../Footer";
 import Navbar from "../Navbar";
 import ChatBox from "./ChatBox";
+import ScrollToTopButton from "../ScrollToTopButton";
+import { FaChevronUp } from "react-icons/fa";
+
 
 function HomePage() {
-  const  [setShowUserDropdown] = useState(false);
+  const [setShowUserDropdown] = useState(false);
   const [user] = useState(() => {
     // Lấy từ localStorage khi load lại trang
     const cached = localStorage.getItem("user");
@@ -27,8 +30,8 @@ function HomePage() {
   const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
   const navigate = useNavigate();
+  const mainRef = useRef(null);
 
-  
 
   // Refs for click-outside detection
   const dropdownContainerRef = useRef(null); // Ref for the div wrapping user icon and dropdown
@@ -127,8 +130,6 @@ function HomePage() {
     );
   };
 
-
-
   return (
     <div className="flex h-screen bg-gray-100">
       {/* Top Bar */}
@@ -138,7 +139,11 @@ function HomePage() {
 
 
       {/* Main Content */}
-      <main className="flex-1 mt-[72px] p-8 overflow-y-auto space-y-8 ">
+      <main
+        ref={mainRef}
+        className="flex-1 mt-[72px] p-8 overflow-y-auto space-y-8 "
+      >
+
         <div>
           <img
             src="/images/banner.png"
@@ -282,7 +287,10 @@ function HomePage() {
           </Swiper>
         </section>
         <ChatBox />
+        <ScrollToTopButton targetRef={mainRef} />
+
         <Footer />
+
       </main>
     </div>
   );

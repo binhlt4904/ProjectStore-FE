@@ -5,6 +5,7 @@ import Sidebar from "../Sidebar";
 import Footer from "../Footer";
 import Navbar from "../Navbar";
 import ChatBox from "./ChatBox";
+import ScrollToTopButton from "../ScrollToTopButton";
 import { FiFilter } from "react-icons/fi";
 
 function TopPage() {
@@ -22,6 +23,7 @@ function TopPage() {
   const [searchTerm, setSearchTerm] = useState("");
   const [priceFilter, setPriceFilter] = useState("");
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const mainRef = useRef(null);
 
   document.title = "TOP - Levents";
 
@@ -82,7 +84,10 @@ function TopPage() {
       <Navbar user={user} onToggleSidebar={() => setSidebarOpen(!sidebarOpen)} />
       <Sidebar user={user} isOpen={sidebarOpen} />
 
-      <main className="flex-1 mt-[72px] p-8 overflow-y-auto space-y-6">
+      <main
+        ref={mainRef}
+        className="flex-1 mt-[72px] p-8 overflow-y-auto space-y-8 "
+      >
         <div className="flex justify-between items-center">
           <h1 className="text-3xl font-bold">
             Tất cả sản phẩm TOP
@@ -200,6 +205,7 @@ function TopPage() {
             </button>
           </div>
         )}
+        <ScrollToTopButton targetRef={mainRef} />
         <ChatBox />
         <Footer />
       </main>

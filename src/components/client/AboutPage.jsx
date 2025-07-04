@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useState ,useRef } from "react";
 import Sidebar from "../Sidebar";
 import Footer from "../Footer";
 import Navbar from "../Navbar";
 import ChatBox from "./ChatBox";
+import ScrollToTopButton from "../ScrollToTopButton";
 import { FaCheckCircle, FaTshirt, FaHeadset } from "react-icons/fa";
 
 const AboutPage = () => {
@@ -13,6 +14,9 @@ const AboutPage = () => {
 
     const [sidebarOpen, setSidebarOpen] = useState(false);
 
+    const mainRef = useRef(null);
+
+
     document.title = "ABOUT - Levents";
 
     return (
@@ -21,7 +25,10 @@ const AboutPage = () => {
             <Navbar user={user} onToggleSidebar={() => setSidebarOpen(!sidebarOpen)} />
             <Sidebar user={user} isOpen={sidebarOpen} />
 
-            <main className="flex-1 mt-[36px] p-8 overflow-y-auto">
+            <main
+                ref={mainRef}
+                className="flex-1 mt-[72px] p-8 overflow-y-auto space-y-8 "
+            >
                 {/* Giới thiệu */}
                 <section className="py-12 grid grid-cols-1 md:grid-cols-2 items-center gap-10 max-w-6xl mx-auto">
                     <div className="order-2 md:order-1">
@@ -109,7 +116,7 @@ const AboutPage = () => {
                 </section>
 
 
-
+                <ScrollToTopButton targetRef={mainRef} />
                 <ChatBox />
                 <Footer />
             </main>

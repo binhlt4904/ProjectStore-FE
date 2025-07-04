@@ -5,6 +5,7 @@ import Sidebar from "../Sidebar";
 import Footer from "../Footer";
 import Navbar from "../Navbar";
 import ChatBox from "./ChatBox";
+import ScrollToTopButton from "../ScrollToTopButton";
 import { FiFilter } from "react-icons/fi";
 
 function NewArrivalPage() {
@@ -17,12 +18,13 @@ function NewArrivalPage() {
   const [currentPage, setCurrentPage] = useState(0);
   const [totalPages, setTotalPages] = useState(1);
   const [sortBy, setSortBy] = useState('');
-  const  [setShowUserDropdown] = useState(false);
+  const [setShowUserDropdown] = useState(false);
   const dropdownContainerRef = useRef(null);
   const [searchTerm, setSearchTerm] = useState("");
   const [priceFilter, setPriceFilter] = useState("");
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+  const mainRef = useRef(null);
 
   document.title = "NEW ARRIVAL - Levents";
 
@@ -82,7 +84,10 @@ function NewArrivalPage() {
       <Navbar user={user} onToggleSidebar={() => setSidebarOpen(!sidebarOpen)} />
       <Sidebar user={user} isOpen={sidebarOpen} />
 
-      <main className="flex-1 mt-[72px] p-8 overflow-y-auto space-y-6">
+      <main
+        ref={mainRef}
+        className="flex-1 mt-[72px] p-8 overflow-y-auto space-y-8 "
+      >
         <div className="flex justify-between items-center">
           <h1 className="text-3xl font-bold">
             Tất cả sản phẩm NEW ARRIVAL
@@ -197,6 +202,7 @@ function NewArrivalPage() {
             </button>
           </div>
         )}
+        <ScrollToTopButton targetRef={mainRef} />
         <ChatBox />
         <Footer />
       </main>

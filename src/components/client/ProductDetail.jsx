@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import Sidebar from '../Sidebar';
@@ -6,6 +6,7 @@ import { useCart } from "./CartContext";
 import Footer from "../Footer";
 import Navbar from "../Navbar";
 import ChatBox from './ChatBox';
+import ScrollToTopButton from "../ScrollToTopButton";
 import Swal from 'sweetalert2';
 
 function ProductDetail() {
@@ -18,6 +19,7 @@ function ProductDetail() {
   const [currentImage, setCurrentImage] = useState(null);
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+  const mainRef = useRef(null);
 
   const colorOptions = [
     'Trắng', 'Đen', 'Xám', 'Xanh navy', 'Xanh dương', 'Xanh lá',
@@ -173,7 +175,10 @@ function ProductDetail() {
     <div className="flex h-screen bg-gray-100">
       <Navbar user={user} onToggleSidebar={() => setSidebarOpen(!sidebarOpen)} />
       <Sidebar user={user} isOpen={sidebarOpen} />
-      <main className="flex-1 mt-[72px] p-8 overflow-y-auto space-y-8">
+       <main
+        ref={mainRef}
+        className="flex-1 mt-[72px] p-8 overflow-y-auto space-y-8 "
+      >
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 bg-white rounded-lg p-6 shadow-md">
           <div className="grid grid-cols-6 gap-6">
             {/* Danh sách ảnh nhỏ bên trái */}
@@ -289,6 +294,7 @@ function ProductDetail() {
             </button>
           </div>
         </div>
+        <ScrollToTopButton targetRef={mainRef} />
         <ChatBox />
         <Footer />
       </main>

@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useCart } from './CartContext';
 import { useNavigate, useLocation } from 'react-router-dom';
 import Sidebar from "../Sidebar";
 import Navbar from "../Navbar";
 import Footer from "../Footer";
+import ScrollToTopButton from "../ScrollToTopButton";
 import axios from 'axios';
 
 const CheckoutPage = () => {
@@ -22,6 +23,7 @@ const CheckoutPage = () => {
   const [paymentMethod, setPaymentMethod] = useState('cod');
   const [errors, setErrors] = useState({});
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const mainRef = useRef(null);
 
 
   const navigate = useNavigate();
@@ -214,7 +216,10 @@ const CheckoutPage = () => {
     <div className="flex bg-gray-100 h-screen">
       <Navbar user={user} onToggleSidebar={() => setSidebarOpen(!sidebarOpen)} />
       <Sidebar user={user} isOpen={sidebarOpen} />
-      <main className="flex-1 mt-[72px] p-8 overflow-y-auto space-y-8 ">
+       <main
+        ref={mainRef}
+        className="flex-1 mt-[72px] p-8 overflow-y-auto space-y-8 "
+      >
         <div className="flex-1  px-6 pb-10">
           <h2 className="text-3xl font-bold mb-8 text-center text-gray-800">Xác Nhận Đơn Hàng</h2>
 
@@ -296,6 +301,7 @@ const CheckoutPage = () => {
             </div>
           </div>
         </div>
+        <ScrollToTopButton targetRef={mainRef} />
         <Footer />
       </main>
     </div>

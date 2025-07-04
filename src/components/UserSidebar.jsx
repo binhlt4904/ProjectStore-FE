@@ -34,7 +34,7 @@ const UserDropdown = ({ user, isOpen, onClose }) => {
 
         onClose(); // Đóng dropdown
 
-        navigate("/home");
+        navigate("/");
 
 
         window.location.reload(); // Làm mới trang để reset lại UI

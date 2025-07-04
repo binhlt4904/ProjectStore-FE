@@ -34,7 +34,7 @@ function Login() {
       if (res.status === 200) {
         const user = res.data;
         login(user);
-        navigate(user.role === "ADMIN" ? "/admin" : "/home");
+        navigate(user.role === "ADMIN" ? "/admin" : "/");
       }
 
     } catch (err) {

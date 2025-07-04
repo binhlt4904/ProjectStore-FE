@@ -162,7 +162,7 @@ function Navbar({ onToggleSidebar }) {
           </div>
         )}
         <div className="shrink min-w-0">
-          <Link to={user && user.role === "ADMIN" ? "/admin" : "/home"}>
+          <Link to={user && user.role === "ADMIN" ? "/admin" : "/"}>
             <img
               src="/images/logo2.png"
               alt="Banner"

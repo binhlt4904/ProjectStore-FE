@@ -42,7 +42,7 @@ const OrderSuccessPage = () => {
                         {/* Nút điều hướng */}
                         <div className="mt-8 space-x-4">
                             <Link
-                                to="/home"
+                                to="/"
                                 className="bg-blue-500 hover:bg-blue-600 text-white px-5 py-2 rounded-lg transition"
                             >
                                 Về trang chủ

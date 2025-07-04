@@ -11,7 +11,7 @@ import { MdNewReleases } from "react-icons/md";
 
 
 const menu = [
-  { label: "Trang chủ", icon: <FaHome />, path: "/home" },
+  { label: "Trang chủ", icon: <FaHome />, path: "/" },
   { label: "About", icon: <FaUsers />, path: "/about" },
   { label: "Top Seller", icon: <FaStar />, path: "/product/top-seller" },
   { label: "New Arrival", icon: <MdNewReleases  />, path: "/product/new-arrival" },

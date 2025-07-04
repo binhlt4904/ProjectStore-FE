@@ -17,7 +17,7 @@ const RoleRedirectWrapper = ({ children, allowedRoles }) => {
 
     if (!allowedRoles.includes(user.role)) {
       // Không có quyền
-      const redirect = user.role === "ADMIN" ? "/admin" : "/home";
+      const redirect = user.role === "ADMIN" ? "/admin" : "/";
       setRedirectPath(redirect);
       setStatus("redirect");
       return;

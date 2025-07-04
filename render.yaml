@@ -2,8 +2,4 @@
 staticSites:
   - name: projectstore-fe
     buildCommand: npm install && npm run build
-    publishPath: build
-    redirects:
-      - source: "/*"
-        destination: index.html
-        statusCode: 200
+    publishPath: buildCommand

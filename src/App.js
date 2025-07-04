@@ -22,6 +22,12 @@ function App() {
       <CartProvider>
         <BrowserRouter >
           <Routes>
+            <Route path="/" element={
+              <>
+                {console.log("Login route matched")}
+                <Login />
+              </>
+            } />
             <Route path="/login" element={
               <>
                 {console.log("Login route matched")}

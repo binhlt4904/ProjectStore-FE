@@ -68,7 +68,7 @@ export default function Register() {
     }
 
     if (!name.trim()) {
-      newErrors.username = "Tên người dùng không được để trống.";
+      newErrors.name = "Tên người dùng không được để trống.";
     }
 
     if (!username.trim()) {

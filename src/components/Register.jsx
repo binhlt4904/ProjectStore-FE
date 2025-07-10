@@ -9,13 +9,15 @@ import { FaEye, FaEyeSlash } from 'react-icons/fa';
 export default function Register() {
   const navigate = useNavigate();
   const [username, setUsername] = useState('');
-  const [exist, setExist] = useState('');
+  const [existUsername, setExistUsername] = useState('');
+  const [existEmail, setExistEmail] = useState('');
   const [name, setName] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [message, setMessage] = useState('');
   const [errors, setErrors] = useState({});
   const [email, setEmail] = useState('');
+  const [exist, setExist] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
@@ -45,8 +47,10 @@ export default function Register() {
           navigate(`/verify-email?email=${encodeURIComponent(email)}`);
         });
 
-      } else {
-        setExist(res.data);
+      } else if(res.status === 400) {
+        setExistEmail(res.data);
+      } else if(res.status === 409){
+        setExistUsername(res.data);
       }
     } catch (err) {
       setExist(err.response?.data);
@@ -109,6 +113,7 @@ export default function Register() {
               />
             </div>
             {errors.email && <p className="text-red-600 font-medium">{errors.email}</p>}
+            {existEmail && <p className="text-red-600 font-medium">{existEmail}</p>}
           </div>
 
 
@@ -128,7 +133,7 @@ export default function Register() {
 
             </div>
             {errors.username && <p className="text-red-600 font-medium">{errors.username}</p>}
-            {exist && <p className="text-red-600 font-medium">{exist}</p>}
+            {existUsername && <p className="text-red-600 font-medium">{existUsername}</p>}
           </div>
 
           {/* Password */}

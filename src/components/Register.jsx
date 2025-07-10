@@ -63,6 +63,10 @@ export default function Register() {
   const validateForm = () => {
     const newErrors = {};
 
+    if (!email.trim()) {
+      newErrors.username = "Tên người dùng không được để trống.";
+    }
+
     if (!name.trim()) {
       newErrors.username = "Tên người dùng không được để trống.";
     }

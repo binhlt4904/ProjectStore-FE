@@ -64,7 +64,7 @@ export default function Register() {
     const newErrors = {};
 
     if (!email.trim()) {
-      newErrors.username = "Tên người dùng không được để trống.";
+      newErrors.email = "Email không được để trống.";
     }
 
     if (!name.trim()) {

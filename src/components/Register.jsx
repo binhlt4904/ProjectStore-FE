@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { FiUser, FiLock } from "react-icons/fi";
 import Swal from 'sweetalert2';
+import { FaEye, FaEyeSlash } from 'react-icons/fa';
 
 
 export default function Register() {
@@ -15,6 +16,8 @@ export default function Register() {
   const [message, setMessage] = useState('');
   const [errors, setErrors] = useState({});
   const [email, setEmail] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
 
@@ -134,13 +137,21 @@ export default function Register() {
             <div className="relative">
               <FiLock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
               <input
-                type="password"
+                 type={showPassword ? "text" : "password"}
                 placeholder="Nhập mật khẩu"
                 className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
 
               />
+              <button
+                type="button"
+                onClick={() => setShowPassword(!showPassword)}
+                className="absolute top-1/2 right-3 transform -translate-y-1/2 text-gray-600 focus:outline-none"
+                tabIndex={-1}
+              >
+                {showPassword ? <FaEyeSlash /> : <FaEye />}
+              </button>
 
             </div>
             {errors.password && <p className="text-red-600 font-medium">{errors.password}</p>}
@@ -152,12 +163,20 @@ export default function Register() {
             <div className="relative">
               <FiLock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
               <input
-                type="password"
+                 type={showConfirmPassword ? "text" : "password"}
                 placeholder="Nhập lại mật khẩu"
                 className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
               />
+              <button
+                type="button"
+                onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                className="absolute top-1/2 right-3 transform -translate-y-1/2 text-gray-600 focus:outline-none"
+                tabIndex={-1}
+              >
+                {showConfirmPassword ? <FaEyeSlash /> : <FaEye />}
+              </button>
 
             </div>
             {errors.confirmPassword && <p className="text-red-600 font-medium">{errors.confirmPassword}</p>}

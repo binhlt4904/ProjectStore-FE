@@ -35,7 +35,7 @@ export const userRoutes = [
   { path: "/product/accessory", component: AccessoryPage },
   { path: "/product/top-seller", component: TopSellerPage },
   { path: "/product/new-arrival", component: NewArrivalPage },
-  { path: "/product/:id", component: ProductDetail },
+  { path: "/product/:category/:id", component: ProductDetail },
   { path: "/checkout", component: CheckoutPage },
   { path: "/my-orders", component: OrderPage },
   { path: "/deposit", component: DepositPage },

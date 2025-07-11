@@ -100,7 +100,16 @@ function HomePage() {
     const navigate = useNavigate(); // Hook điều hướng
 
     const handleClick = () => {
-      navigate(`/product/${product.id}`); // Điều hướng sang trang chi tiết
+      if(product.category === 'top'){
+        navigate(`/product/top/${product.id}`);
+      }
+      if(product.category === 'bottom'){
+        navigate(`/product/bottom/${product.id}`);
+      }
+      if(product.category === 'accessory'){
+        navigate(`/product/accessory/${product.id}`);
+      }
+
     };
 
     return (

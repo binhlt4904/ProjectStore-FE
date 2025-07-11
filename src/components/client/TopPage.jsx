@@ -62,7 +62,7 @@ function TopPage() {
   const navigate = useNavigate();
 
   const handleProductClick = (id) => {
-    navigate(`/product/${id}`);
+    navigate(`/product/top/${id}`);
   };
 
   useEffect(() => {

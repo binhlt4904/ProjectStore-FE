@@ -61,8 +61,16 @@ function TopSellerPage() {
 
   const navigate = useNavigate();
 
-  const handleProductClick = (id) => {
-    navigate(`/product/${id}`);
+  const handleProductClick = (product) => {
+   if(product.category === 'top'){
+        navigate(`/product/top/${product.id}`);
+      }
+      if(product.category === 'bottom'){
+        navigate(`/product/bottom/${product.id}`);
+      }
+      if(product.category === 'accessory'){
+        navigate(`/product/accessory/${product.id}`);
+      }
   };
 
   useEffect(() => {
@@ -151,7 +159,7 @@ function TopSellerPage() {
           {Array.isArray(products) && products.map((product) => (
             <div
               key={product.id}
-              onClick={() => handleProductClick(product.id)}
+              onClick={() => handleProductClick(product)}
               className="border rounded-lg shadow-sm p-4 bg-white hover:shadow-md transform hover:-translate-y-1 transition-all duration-200 cursor-pointer"
 
             >

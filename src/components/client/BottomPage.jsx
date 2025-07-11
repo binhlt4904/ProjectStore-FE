@@ -63,7 +63,7 @@ function BottomPage() {
   const navigate = useNavigate();
 
   const handleProductClick = (id) => {
-    navigate(`/product/${id}`);
+    navigate(`/product/bottom/${id}`);
   };
 
   useEffect(() => {

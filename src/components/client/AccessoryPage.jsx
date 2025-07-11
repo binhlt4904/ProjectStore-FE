@@ -62,7 +62,7 @@ function AccessoryPage() {
   const navigate = useNavigate();
 
   const handleProductClick = (id) => {
-    navigate(`/product/${id}`);
+    navigate(`/product/accessory/${id}`);
   };
 
   useEffect(() => {
